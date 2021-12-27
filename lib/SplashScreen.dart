@@ -27,14 +27,14 @@ class _BootStrapState extends State<SplashScreen> {
           children: [
             Spacer(),
             Spacer(),
-            Image.asset("assets/logo.png"),
+            Image.asset("assets/splash.png"),
             Spacer(),
             Container(
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                      "Copyrights © 2020 Home of Desi Foodz (Pvt) Ltd. All Rights Reserved."),
+                      "Copyright © 2020 Desi Food (Pvt) Ltd. All Rights Reserved."),
                 ),
               ),
             ),

@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
+  WebViewController control;
 
   double _progresss = 0.0;
   bool _finished = false;
@@ -24,52 +25,59 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Home of Desi Foodz",
-          style: TextStyle(fontWeight: FontWeight.bold),
+    return WillPopScope(
+      onWillPop: () async {
+        if (await control.canGoBack()) {
+          control.goBack();
+          return Future.value(false);
+        } else {
+          return Future.value(true);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Desi Food",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-      body: Container(
-        child: Column(
-          children: [
-            !_finished
-                ? LinearProgressIndicator(
-                    value: _progresss,
-                  )
-                : SizedBox(),
-            Expanded(
-              child: WebView(
-                initialUrl: 'https://homeofdesifoodz.com/',
-                javascriptMode: JavascriptMode.unrestricted,
-                onWebViewCreated: (WebViewController webViewController) {
-                  _controller.complete(webViewController);
-                },
-                onPageStarted: (url) {
-                  print('started loading $url');
-                },
-                onPageFinished: (url) {
-                  print('finished loading $url');
-                  setState(() {
-                    _finished = true;
-                  });
-                },
-                onProgress: (progress) {
-                  setState(() {
-                    _progresss = _progresss;
-                  });
-                  print('progress $progress');
-                },
-                onWebResourceError: (error) {
-                  print(error.toString());
-                },
+        body: Container(
+          child: Column(
+            children: [
+              !_finished
+                  ? LinearProgressIndicator(
+                      value: _progresss,
+                    )
+                  : SizedBox(),
+              Expanded(
+                child: WebView(
+                  initialUrl: 'https://homeofdesifoodz.com/',
+                  javascriptMode: JavascriptMode.unrestricted,
+                  onWebViewCreated: (WebViewController webViewController) {
+                    _controller.future.then((value) => control = value);
+                    _controller.complete(webViewController);
+                  },
+                  onPageStarted: (url) {},
+                  onPageFinished: (url) {
+                    setState(() {
+                      _finished = true;
+                    });
+                  },
+                  onProgress: (progress) {
+                    setState(() {
+                      _progresss = _progresss;
+                    });
+                  },
+                  onWebResourceError: (error) {
+                    print(error.toString());
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        drawer: NavDrawer(),
       ),
-      drawer: NavDrawer(),
     );
   }
 }
