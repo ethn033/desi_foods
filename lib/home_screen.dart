@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:desi_foods/drawer.dart';
+import 'package:desi_foods/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -46,39 +47,41 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.orange,
         ),
         body: Container(
-          child: Column(
+          child: Stack(
             children: [
+              WebView(
+                initialUrl: 'https://homeofdesifoodz.com/',
+                javascriptMode: JavascriptMode.unrestricted,
+                onWebViewCreated: (WebViewController webViewController) {
+                  _controller.future.then((value) => control = value);
+                  _controller.complete(webViewController);
+                },
+                onPageStarted: (url) {},
+                onPageFinished: (url) {
+                  setState(() {
+                    _finished = true;
+                  });
+                },
+                onProgress: (progress) {
+                  setState(() {
+                    _progresss = _progresss;
+                  });
+                },
+                onWebResourceError: (error) {
+                  Utils.showToast(
+                      title:
+                          "Some error occured. Please check your connection and try again.");
+                },
+              ),
               !_finished
-                  ? Container(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                  ? Center(
+                      child: _progresss == 0
+                          ? CircularProgressIndicator(
+                              color: Colors.deepOrange,
+                            )
+                          : SizedBox(),
                     )
                   : SizedBox(),
-              Expanded(
-                child: WebView(
-                  initialUrl: 'https://homeofdesifoodz.com/',
-                  javascriptMode: JavascriptMode.unrestricted,
-                  onWebViewCreated: (WebViewController webViewController) {
-                    _controller.future.then((value) => control = value);
-                    _controller.complete(webViewController);
-                  },
-                  onPageStarted: (url) {},
-                  onPageFinished: (url) {
-                    setState(() {
-                      _finished = true;
-                    });
-                  },
-                  onProgress: (progress) {
-                    setState(() {
-                      _progresss = _progresss;
-                    });
-                  },
-                  onWebResourceError: (error) {
-                    print(error.toString());
-                  },
-                ),
-              ),
             ],
           ),
         ),

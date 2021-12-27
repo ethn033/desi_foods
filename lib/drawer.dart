@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:desi_foods/about_screen.dart';
 import 'package:desi_foods/utils/dialogue.dart';
 import 'package:desi_foods/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +91,19 @@ class _NavDrawerState extends State<NavDrawer> {
               ),
             ),
           ),
+          ListTile(
+            onTap: () async {
+              Navigator.pop(context);
+              await canLaunch("https://www.linkedin.com/in/homeofdesifoodz/")
+                  ? await launch("https://www.linkedin.com/in/homeofdesifoodz/")
+                  : throw 'Could not launch';
+            },
+            title: Text(
+              'LinkedIn',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            leading: Icon(Icons.social_distance_rounded),
+          ),
           Divider(),
           Padding(
             padding: const EdgeInsets.only(left: 13.0, top: 5.0),
@@ -164,6 +178,11 @@ class _NavDrawerState extends State<NavDrawer> {
           ListTile(
             onTap: () {
               Navigator.pop(context);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => AbourScreen(),
+                ),
+              );
             },
             title: Text(
               'About Us',
