@@ -1,4 +1,4 @@
-import 'package:desi_foods/SplashScreen.dart';
+import 'package:desi_foods/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,7 +8,7 @@ void main() {
         primaryColor: Colors.amber,
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black),
       ),
-      title: "Home Of Desi Foods",
+      title: "Desi Food",
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     ),

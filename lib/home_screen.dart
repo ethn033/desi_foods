@@ -36,17 +36,23 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Desi Food",
-            style: TextStyle(fontWeight: FontWeight.bold),
+          title: Center(
+            child: Text(
+              "Home Of Desi Foodz",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: Colors.orange,
         ),
         body: Container(
           child: Column(
             children: [
               !_finished
-                  ? LinearProgressIndicator(
-                      value: _progresss,
+                  ? Container(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     )
                   : SizedBox(),
               Expanded(

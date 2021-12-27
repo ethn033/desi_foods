@@ -39,8 +39,14 @@ class _BootStrapState extends State<SplashScreen> {
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                      "Copyright © 2020 Desi Food (Pvt) Ltd. All Rights Reserved."),
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
+                      "Copyright © 2020 Desi Food (Pvt) Ltd. All Rights Reserved.",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
               ),
             ),
