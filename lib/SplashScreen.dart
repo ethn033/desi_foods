@@ -27,7 +27,13 @@ class _BootStrapState extends State<SplashScreen> {
           children: [
             Spacer(),
             Spacer(),
-            Image.asset("assets/splash.png"),
+            Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Image.asset(
+                "assets/splash.png",
+                fit: BoxFit.contain,
+              ),
+            ),
             Spacer(),
             Container(
               child: Center(

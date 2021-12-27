@@ -20,8 +20,8 @@ class _NavDrawerState extends State<NavDrawer> {
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.amber,
-            ),
+                // color: Colors.amber,
+                ),
             child: Image.asset(
               "assets/logo.png",
               fit: BoxFit.contain,
